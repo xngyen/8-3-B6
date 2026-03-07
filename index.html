@@ -74,6 +74,10 @@ h1{
 
 <script>
 
+let LoiChuc = {
+ Thịnh Moi : "Chúc mừng 8-3 Thịnh Moi ❤️ Chúc bạn luôn xinh đẹp, vui vẻ và học thật giỏi. Mong rằng ngày 8-3 của bạn"
+}
+
 function showCard(){
     let name = document.getElementById("name").value;
 
@@ -85,8 +89,13 @@ function showCard(){
     document.getElementById("inputBox").style.display="none";
     document.getElementById("card").style.display="block";
 
-    document.getElementById("title").innerText =
-        "Chúc mừng 8-3 " + name + " ❤️";
+    if(LoiChuc[name] !== undefined){
+        document.getElementById("title").innerText = LoiChuc[name];
+        return;
+    }else{
+        document.getElementById("title").innerText =
+            "Chúc mừng 8-3 " + name + " ❤️";
+    }
 }
 
 </script>
