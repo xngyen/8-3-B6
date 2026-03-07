@@ -2,103 +2,219 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <title>Chúc mừng 8-3</title>
 
 <style>
-body{
-    font-family: Arial;
-    text-align:center;
-    background: linear-gradient(pink,#ffe6f2);
-    height:100vh;
-}
+    body{
+        margin:0;
+        height:100vh;
+        background-image: url("background.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 
-.box{
-    margin-top:120px;
-}
+    h1{
+        text-align: center;
+        color: white;
+        text-shadow: 2px 2px 8px pink;
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 670;
+        font-size: 50px;
+        font-style: normal;
+    }
 
-input{
-    padding:10px;
-    font-size:16px;
-}
+    .SearchingBox{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        margin-top:30px;
+        background:white;
+        border-radius:30px;
+        width:420px;
+        margin-left:auto;
+        margin-right:auto;
+        box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    }
 
-button{
-    padding:10px 20px;
-    font-size:16px;
-    background:#ff4da6;
-    color:white;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-}
+    .search-box{
+        flex:1;
+        padding:12px 20px;
+        border:none;
+        outline:none;
+        font-size:16px;
+        border-radius:30px 0 0 30px;
+    }
 
-.card{
-    display:none;
-    margin-top:100px;
-}
+    .search-button{
+        padding:12px 20px;
+        border: none;
+        outline: none;
+        background:white;
+        cursor:pointer;
+        font-size:16px;
+        border-radius:0 30px 30px 0;
+    }
 
-h1{
-    color:#ff1a8c;
-}
+    .SearchingBox:focus-within{
+        transform: scale(1.05);
+        box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    }
 
-.flower{
-    font-size:40px;
-}
+    #suggestions{
+        list-style:none;
+        padding:0;
+        width:420px;
+        margin:auto;
+        background:white;
+        border-radius:10px;
+    }
+
+    #suggestions li{
+        padding:10px;
+        cursor:pointer;
+    }
+
+    #suggestions li:hover{
+        background:#f0f0f0;
+    }
+
+    #card{
+        display: none;
+        width:400px;
+        margin:40px auto;
+        padding:30px;
+        background:rgb(177, 0, 74);
+        border-radius:20px;
+        text-align:center;
+        font-family: "Montserrat", sans-serif;
+        box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+        animation: fade 0.6s ease;
+    }
+
+    @keyframes fade{
+        from{
+            opacity:0;
+            transform: translateY(20px);
+        }
+        to{
+            opacity:1;
+            transform: translateY(0);
+        }
+    }
+
+    #card img{
+        width:100%;
+    }
+
+    p{
+        font-family: "Montserrat", sans-serif;
+        color:#f0f0f0;
+        text-shadow: 5px 5px 20px pink;
+    }
+
+
 </style>
 
 </head>
 
 <body>
+    <div id="Home">
+        <h1>Nhập Tên Của Bạn</h1>
+    </div>
 
-<div class="box" id="inputBox">
-    <h1>🌸 Chúc mừng ngày 8-3 🌸</h1>
-    <p>Nhập tên của bạn:</p>
+    <div class="SearchingBox">
+        <input type="text" placeholder="Tìm kiếm..." class="search-box" id="search">
+        <button class="search-button" onclick="ClickButton()">🔍</button>
+    </div>
 
-    <input type="text" id="name">
-    <button onclick="showCard()">Xem lời chúc</button>
-</div>
+    <ul id="suggestions"></ul>
 
-
-<div class="card" id="card">
-    <div class="flower">🌸🌷💐🌹🌺</div>
-
-    <h1 id="title"></h1>
-
-    <p>
-    Chúc bạn luôn xinh đẹp, vui vẻ và học thật giỏi.  
-    Mong rằng ngày 8-3 của bạn sẽ thật nhiều niềm vui và tiếng cười!
-    </p>
-
-    <div class="flower">💐🌷🌸🌺🌹</div>
-</div>
-
+    <div id="card"> </div>
 
 <script>
+    const names = [
+        "Lan",
+        "Mai",
+        "Hương",
+        "Ngọc",
+        "Trang",
+        "Linh",
+        "Thảo",
+        "Vy",
+        "Phương",
+        "Nhung"
+    ];
 
-let LoiChuc = {
- "Thịnh Moi" : "Chúc mừng 8-3 Thịnh Moi ❤️ Chúc bạn luôn xinh đẹp, vui vẻ và học thật giỏi. Mong rằng ngày 8-3 của bạn"
-}
+    const input = document.getElementById("search");
+    const suggestions = document.getElementById("suggestions");
 
-function showCard(){
-    let name = document.getElementById("name").value;
+    input.addEventListener("input", function(){
 
-    if(name==""){
-        alert("Hãy nhập tên nhé!");
-        return;
+        const value = input.value.toLowerCase();
+        suggestions.innerHTML = "";
+
+        if(value === "") return;
+
+        const filtered = names.filter(name =>
+            name.toLowerCase().includes(value)
+        );
+
+        filtered.forEach(name=>{
+            const li = document.createElement("li");
+            li.textContent = name;
+
+            li.onclick = function(){
+                input.value = name;
+                suggestions.innerHTML = "";
+            }
+
+            suggestions.appendChild(li);
+        });
+
+    });
+
+    function ClickButton(){
+        Hide();
+        ShowCard();
     }
 
-    document.getElementById("inputBox").style.display="none";
-    document.getElementById("card").style.display="block";
-
-    if(LoiChuc[name] !== undefined){
-        document.getElementById("title").innerText = LoiChuc[name];
-        return;
-    }else{
-        document.getElementById("title").innerText =
-            "Chúc mừng 8-3 " + name + " ❤️";
+    function Hide(){
+        document.querySelector(".SearchingBox").style.display = "none";
+        document.querySelector("h1").style.display = "none";
     }
-}
+
+    const cardContent = {
+        "Linh" :`
+            <img src="background.png">
+            <h1>Lời nói Đầu</h1>
+            <p>Lời chúc....</p>
+        `,
+        "undefined":`
+            <img src="background.png">
+            <h1>Không Tìm Thấy Tên Trong List</h1>
+            <p>Vui Lòng Thử Lại</p>
+        `
+    };
+
+    function ShowCard(){
+        const name = document.getElementById("search").value;
+        const Card = document.getElementById("card");
+
+        Card.style.display = "block";
+        if(cardContent[name] !== undefined){
+            Card.innerHTML = cardContent[name];
+        }else{
+            Card.innerHTML = cardContent["undefined"];
+        }
+        
+    }
 
 </script>
-
 </body>
 </html>
