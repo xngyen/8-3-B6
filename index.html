@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Chúc mừng 8-3</title>
+
+<style>
+body{
+    font-family: Arial;
+    text-align:center;
+    background: linear-gradient(pink,#ffe6f2);
+    height:100vh;
+}
+
+.box{
+    margin-top:120px;
+}
+
+input{
+    padding:10px;
+    font-size:16px;
+}
+
+button{
+    padding:10px 20px;
+    font-size:16px;
+    background:#ff4da6;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.card{
+    display:none;
+    margin-top:100px;
+}
+
+h1{
+    color:#ff1a8c;
+}
+
+.flower{
+    font-size:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box" id="inputBox">
+    <h1>🌸 Chúc mừng ngày 8-3 🌸</h1>
+    <p>Nhập tên của bạn:</p>
+
+    <input type="text" id="name">
+    <button onclick="showCard()">Xem lời chúc</button>
+</div>
+
+
+<div class="card" id="card">
+    <div class="flower">🌸🌷💐🌹🌺</div>
+
+    <h1 id="title"></h1>
+
+    <p>
+    Chúc bạn luôn xinh đẹp, vui vẻ và học thật giỏi.  
+    Mong rằng ngày 8-3 của bạn sẽ thật nhiều niềm vui và tiếng cười!
+    </p>
+
+    <div class="flower">💐🌷🌸🌺🌹</div>
+</div>
+
+
+<script>
+
+function showCard(){
+    let name = document.getElementById("name").value;
+
+    if(name==""){
+        alert("Hãy nhập tên nhé!");
+        return;
+    }
+
+    document.getElementById("inputBox").style.display="none";
+    document.getElementById("card").style.display="block";
+
+    document.getElementById("title").innerText =
+        "Chúc mừng 8-3 " + name + " ❤️";
+}
+
+</script>
+
+</body>
+</html>
