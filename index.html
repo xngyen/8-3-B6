@@ -229,113 +229,26 @@
         document.querySelector("h1").style.display = "none";
     }
 
-    const cardContent = {
-"Nguyễn Ngọc Hà Anh":`
-<img src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" width="120">
-<h2>💐 Chúc mừng 8/3</h2>
-<p>
-Chúc bạn luôn vui vẻ, xinh đẹp và tràn đầy năng lượng ✨<br>
-Mong rằng mỗi ngày của bạn đều ngập tràn niềm vui 🌸<br>
-Chúc bạn học tập thật tốt và đạt được mọi điều mình mong muốn 🎀
-</p>
-`,
+    let cardContent = {};
 
-"Phạm Thị Mai Anh":`
-<img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" width="120">
-<h2>🌷 Happy Women's Day</h2>
-<p>
-Chúc bạn có một ngày 8/3 thật đặc biệt 💖<br>
-Luôn mỉm cười và tỏa sáng như những bông hoa mùa xuân 🌺<br>
-Chúc bạn gặp thật nhiều may mắn và thành công trong cuộc sống ✨
-</p>
-`,
+    fetch("https://opensheet.elk.sh/14oGTdWkiINn4RyU_ERm4y2QmNOyspyC0-J2AP3oxn5U/1")
+    .then(res => res.json())
+    .then(data => {
 
-"Phạm Nguyễn Hoàng Châu":`
-<img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" width="120">
-<h2>🌹 Ngày Quốc Tế Phụ Nữ</h2>
-<p>
-Chúc bạn luôn mạnh mẽ và tự tin 💫<br>
-Luôn giữ được nụ cười rạng rỡ trên môi 😊<br>
-Mong rằng mọi điều tốt đẹp nhất sẽ đến với bạn 🌸
-</p>
-`,
+        data.forEach(row => {
+            if(row["Duyệt"] === "TRUE"){
+                cardContent[row["Người nhận"]] = `
+                <img src="${row["Link Ảnh"]}" width="120">
+                <h2>💐 Chúc mừng 8/3</h2>
+                <p>${row["Lời chúc"]}</p>
+                `;
 
-"Vũ Ngọc Hà":`
-<img src="https://cdn-icons-png.flaticon.com/512/3199/3199887.png" width="120">
-<h2>💖 8/3 vui vẻ</h2>
-<p>
-Chúc bạn luôn hạnh phúc và bình an trong cuộc sống 🌷<br>
-Luôn đạt được những ước mơ của mình ✨<br>
-Và có thật nhiều kỷ niệm đẹp mỗi ngày 💐
-</p>
-`,
+            }
 
-"Lê Thúy Hạnh":`
-<img src="https://cdn-icons-png.flaticon.com/512/2909/2909764.png" width="120">
-<h2>🌸 Chúc bạn ngày 8/3</h2>
-<p>
-Chúc bạn luôn rạng rỡ như những đóa hoa mùa xuân 🌺<br>
-Luôn gặp thật nhiều niềm vui và may mắn 🍀<br>
-Mong rằng mỗi ngày đều là một ngày tuyệt vời với bạn 💕
-</p>
-`,
+        });
 
-"Nguyễn Thị Mỹ Hoa":`
-<img src="https://cdn-icons-png.flaticon.com/512/535/535234.png" width="120">
-<h2>🌷 Chúc mừng 8/3</h2>
-<p>
-Chúc bạn luôn xinh đẹp, vui vẻ và tràn đầy năng lượng 🌸<br>
-Chúc bạn đạt nhiều thành công trong học tập 📚<br>
-Và luôn có thật nhiều tiếng cười trong cuộc sống 😄
-</p>
-`,
+    });
 
-"Đặng Thị Hà Linh":`
-<img src="https://cdn-icons-png.flaticon.com/512/2917/2917995.png" width="120">
-<h2>💐 Ngày đặc biệt</h2>
-<p>
-Chúc bạn có một ngày 8/3 thật vui 🎀<br>
-Luôn giữ được sự lạc quan và năng lượng tích cực ✨<br>
-Mong rằng mọi điều tốt đẹp nhất sẽ đến với bạn 🌷
-</p>
-`,
-
-"Phạm Khánh Linh":`
-<img src="https://cdn-icons-png.flaticon.com/512/869/869636.png" width="120">
-<h2>🌹 Happy 8/3</h2>
-<p>
-Chúc bạn luôn vui vẻ và hạnh phúc 💖<br>
-Luôn mạnh mẽ để theo đuổi ước mơ của mình ⭐<br>
-Chúc bạn có thật nhiều khoảnh khắc đáng nhớ 🌸
-</p>
-`,
-
-"Trần Phương Linh":`
-<img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" width="120">
-<h2>🌺 Chúc mừng 8/3</h2>
-<p>
-Chúc bạn luôn tỏa sáng và tự tin 🌟<br>
-Chúc bạn học tập tốt và đạt nhiều thành tích 📚<br>
-Chúc bạn luôn có thật nhiều niềm vui trong cuộc sống 💐
-</p>
-`,
-
-"Vũ Hà Linh":`
-<img src="https://cdn-icons-png.flaticon.com/512/2583/2583319.png" width="120">
-<h2>💖 Ngày Quốc Tế Phụ Nữ</h2>
-<p>
-Chúc bạn luôn tràn đầy năng lượng tích cực ✨<br>
-Luôn gặp nhiều điều may mắn trong cuộc sống 🍀<br>
-Và có thật nhiều khoảnh khắc hạnh phúc 🌸
-</p>
-`,
-
-"undefined":`
-<img src="background.png">
-<h1>Không Tìm Thấy Tên</h1>
-<p>Vui lòng thử lại nhé 🔍</p>
-`
-};
 
 
     function ShowCard(){
